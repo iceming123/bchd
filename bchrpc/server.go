@@ -561,14 +561,14 @@ func (s *GrpcServer) GetHeaders(ctx context.Context, req *pb.GetHeadersRequest) 
 	for i, header := range headers {
 		hash := header.BlockHash()
 		resp.Headers = append(resp.Headers, &pb.BlockInfo{
-			Difficulty:    getDifficultyRatio(header.Bits, s.chainParams),
+			Difficulty:    getDifficultyRatio(uint32(header.Bits), s.chainParams),
 			Hash:          hash.CloneBytes(),
 			Height:        startHeight + int32(i),
 			Version:       header.Version,
 			Timestamp:     header.Timestamp.Unix(),
 			MerkleRoot:    header.MerkleRoot.CloneBytes(),
-			Nonce:         header.Nonce,
-			Bits:          header.Bits,
+			Nonce:         uint32(header.Nonce),
+			Bits:          uint32(header.Bits),
 			PreviousBlock: header.PrevBlock.CloneBytes(),
 			Confirmations: s.chain.BestSnapshot().Height - (startHeight + int32(i)) + 1,
 		})
@@ -1474,14 +1474,14 @@ func getDifficultyRatio(bits uint32, params *chaincfg.Params) float64 {
 
 func marshalBlockInfo(block *bchutil.Block, confirmations int32, params *chaincfg.Params) *pb.BlockInfo {
 	return &pb.BlockInfo{
-		Difficulty:    getDifficultyRatio(block.MsgBlock().Header.Bits, params),
+		Difficulty:    getDifficultyRatio(uint32(block.MsgBlock().Header.Bits), params),
 		Hash:          block.Hash().CloneBytes(),
 		Height:        block.Height(),
 		Version:       block.MsgBlock().Header.Version,
 		Timestamp:     block.MsgBlock().Header.Timestamp.Unix(),
 		MerkleRoot:    block.MsgBlock().Header.MerkleRoot.CloneBytes(),
-		Nonce:         block.MsgBlock().Header.Nonce,
-		Bits:          block.MsgBlock().Header.Bits,
+		Nonce:         uint32(block.MsgBlock().Header.Nonce),
+		Bits:          uint32(block.MsgBlock().Header.Bits),
 		PreviousBlock: block.MsgBlock().Header.PrevBlock.CloneBytes(),
 		Confirmations: confirmations,
 		Size:          int32(block.MsgBlock().SerializeSize()),

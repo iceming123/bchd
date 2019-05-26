@@ -34,15 +34,15 @@ type BlockHeader struct {
 	Timestamp time.Time
 
 	// Difficulty target for the block.
-	Bits uint32
+	Bits uint64
 
 	// Nonce used to generate the block.
-	Nonce uint32
+	Nonce uint64
 }
 
 // blockHeaderLen is a constant that represents the number of bytes for a block
 // header.
-const blockHeaderLen = 80
+const blockHeaderLen = 88
 
 // BlockHash computes the block identifier hash for the given block header.
 func (h *BlockHeader) BlockHash() chainhash.Hash {
@@ -96,7 +96,7 @@ func (h *BlockHeader) Serialize(w io.Writer) error {
 // block hash, merkle root hash, difficulty bits, and nonce used to generate the
 // block with defaults for the remaining fields.
 func NewBlockHeader(version int32, prevHash, merkleRootHash *chainhash.Hash,
-	bits uint32, nonce uint32) *BlockHeader {
+	bits uint64, nonce uint64) *BlockHeader {
 
 	// Limit the timestamp to one second precision since the protocol
 	// doesn't support better.

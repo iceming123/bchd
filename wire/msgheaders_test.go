@@ -62,8 +62,8 @@ func TestHeaders(t *testing.T) {
 func TestHeadersWire(t *testing.T) {
 	hash := mainNetGenesisHash
 	merkleHash := blockOne.Header.MerkleRoot
-	bits := uint32(0x1d00ffff)
-	nonce := uint32(0x9962e301)
+	bits := uint64(0x1d00ffff)
+	nonce := uint64(0x9962e301)
 	bh := NewBlockHeader(1, &hash, &merkleHash, bits, nonce)
 	bh.Version = blockOne.Header.Version
 	bh.Timestamp = blockOne.Header.Timestamp
@@ -230,8 +230,8 @@ func TestHeadersWireErrors(t *testing.T) {
 
 	hash := mainNetGenesisHash
 	merkleHash := blockOne.Header.MerkleRoot
-	bits := uint32(0x1d00ffff)
-	nonce := uint32(0x9962e301)
+	bits := uint64(0x1d00ffff)
+	nonce := uint64(0x9962e301)
 	bh := NewBlockHeader(1, &hash, &merkleHash, bits, nonce)
 	bh.Version = blockOne.Header.Version
 	bh.Timestamp = blockOne.Header.Timestamp

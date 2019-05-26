@@ -19,11 +19,11 @@ func TestBlockHeader(t *testing.T) {
 	if err != nil {
 		t.Errorf("RandomUint64: Error generating nonce: %v", err)
 	}
-	nonce := uint32(nonce64)
+	nonce := nonce64
 
 	hash := mainNetGenesisHash
 	merkleHash := mainNetGenesisMerkleRoot
-	bits := uint32(0x1d00ffff)
+	bits := uint64(0x1d00ffff)
 	bh := NewBlockHeader(1, &hash, &merkleHash, bits, nonce)
 
 	// Ensure we get the same data back out.
@@ -48,11 +48,11 @@ func TestBlockHeader(t *testing.T) {
 // TestBlockHeaderWire tests the BlockHeader wire encode and decode for various
 // protocol versions.
 func TestBlockHeaderWire(t *testing.T) {
-	nonce := uint32(123123) // 0x1e0f3
+	nonce := uint64(123123) // 0x1e0f3
 	pver := uint32(70001)
 
 	// baseBlockHdr is used in the various tests as a baseline BlockHeader.
-	bits := uint32(0x1d00ffff)
+	bits := uint64(0x1d00ffff)
 	baseBlockHdr := &BlockHeader{
 		Version:    1,
 		PrevBlock:  mainNetGenesisHash,
@@ -188,10 +188,10 @@ func TestBlockHeaderWire(t *testing.T) {
 
 // TestBlockHeaderSerialize tests BlockHeader serialize and deserialize.
 func TestBlockHeaderSerialize(t *testing.T) {
-	nonce := uint32(123123) // 0x1e0f3
+	nonce := uint64(123123) // 0x1e0f3
 
 	// baseBlockHdr is used in the various tests as a baseline BlockHeader.
-	bits := uint32(0x1d00ffff)
+	bits := uint64(0x1d00ffff)
 	baseBlockHdr := &BlockHeader{
 		Version:    1,
 		PrevBlock:  mainNetGenesisHash,

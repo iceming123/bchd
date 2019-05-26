@@ -218,7 +218,7 @@ func (m *CPUMiner) solveBlock(msgBlock *wire.MsgBlock, blockHeight int32,
 
 	// Create some convenience variables.
 	header := &msgBlock.Header
-	targetDifficulty := blockchain.CompactToBig(header.Bits)
+	targetDifficulty := blockchain.CompactToBig(uint32(header.Bits))
 
 	// Initial state.
 	lastGenerated := time.Now()
@@ -273,7 +273,7 @@ func (m *CPUMiner) solveBlock(msgBlock *wire.MsgBlock, blockHeight int32,
 			// hash is actually a double sha256 (two hashes), so
 			// increment the number of hashes completed for each
 			// attempt accordingly.
-			header.Nonce = i
+			header.Nonce = uint64(i)
 			hash := header.BlockHash()
 			hashesCompleted += 2
 
