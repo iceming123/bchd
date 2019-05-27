@@ -218,7 +218,7 @@ func (m *CPUMiner) solveBlock(msgBlock *wire.MsgBlock, blockHeight int32,
 
 	// Create some convenience variables.
 	header := &msgBlock.Header
-	targetDifficulty := blockchain.CompactToBig(uint32(header.Bits))
+	targetDifficulty := blockchain.CompactToBig(header.Bits)
 
 	// Initial state.
 	lastGenerated := time.Now()

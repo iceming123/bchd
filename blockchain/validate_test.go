@@ -397,7 +397,7 @@ func TestSigOpsLimitsWithMultiMBBlocks(t *testing.T) {
 func newTestBlock(base, tip *wire.MsgBlock, coinbaseSigOps, tx1SigOps, tx2SigOps int) (*wire.MsgBlock, error) {
 	prevHash := tip.Header.BlockHash()
 	prevMRoot := tip.Header.MerkleRoot
-	easyBits := uint64(chaincfg.MainNetParams.PowLimitBits)
+	easyBits := chaincfg.MainNetParams.PowLimitBits
 	addSigOps := map[int]int{
 		0: coinbaseSigOps - 1,
 		1: tx1SigOps - 1,
